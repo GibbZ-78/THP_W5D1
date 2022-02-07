@@ -5,11 +5,24 @@
   <body>
 
     <h1>Voici le potin n° <%=gossip.id.to_s%>!</h1>
-      <p><strong>ID:</strong> <%= gossip.id.to_s %></p>
-      <p><strong>Author:</strong> <%= gossip.author %></p>
-      <p><strong>Content:</strong> <%= gossip.content %></p>
-     
-    <span>Pour revenir à la page d'accueile, clique donc <a href="/">ici</a>.</span>
+    <table style="border: 1px solid black;">
+      <tr style="border: 1px solid black;">
+        <td style="border: 1px solid black;"><strong>Gossip ID</strong></td>
+        <td style="border: 1px solid black;"><strong>Author</strong></td>
+        <td style="border: 1px solid black;"><strong>Content</strong></td>
+        <td style="border: 1px solid black;"><strong>-</strong></td>
+        <td style="border: 1px solid black;"><strong>-</strong></td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;"><%= gossip.id.to_s %></td>
+        <td style="border: 1px solid black;"><%= gossip.author %></td>
+        <td style="border: 1px solid black;"><%= gossip.content %></td>
+        <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/edit">Update</a></td>
+        <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/delete">Delete</a></td>
+      </tr>
+    </table>
+    </br>
+    <span>Pour revenir à la page d'accueil, clique donc <a href="/">ici</a>.</span>
 
   </body>
 </html>

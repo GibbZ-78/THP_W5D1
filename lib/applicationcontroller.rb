@@ -32,6 +32,17 @@ class ApplicationController < Sinatra::Base
     erb :show_gossip_by_id, locals: {gossip:Gossip.get_gossip_by_id(@@csv_file,params['id'].to_i,false)}
   end
 
+  get '/gossips/:id/edit/' do
+    # erb :update_gossip_by_id, locals: {gossip:Gossip.get_gossip_by_id(@@csv_file,params['id'].to_i,false)}
+    "<html><body><h1>Hello !</h1></body></html>"
+  end
+
+  post '/gossips/:id/edit/' do
+    Gossip.new(params['gossip_author'],params['gossip_content'],params['gossip_id'],false).update_in_csv_file(@@csv_file,false)
+  end
+
+  # OLD S**T - Temporarily used when browsing THP learning material
+  # Shows how to collect and use variables sent together with the POST method
   # post '/gossips/new/' do
   #   puts "Salut, je suis dans le serveur"
   #   puts "Ceci est le contenu du hash params : #{params}"
