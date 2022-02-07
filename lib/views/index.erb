@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>The Gossip Project</title>
+  </head>
+  <body>
+
+    <h1>Bienvenue sur ce super site de potins !</h1>
+    <h2>Liste des potins existants</h2>
+      <table style="border: 1px solid black;">
+        <tr style="border: 1px solid black;">
+          <td style="border: 1px solid black;"><strong>Gossip ID</strong></td>
+          <td style="border: 1px solid black;"><strong>Author</strong></td>
+          <td style="border: 1px solid black;"><strong>Content</strong></td>
+        </tr>
+        <% gossips.each do |gossip| %>
+        <tr style="border: 1px solid black;">
+          <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>"><%= gossip.id.to_s %></a></td>
+          <td style="border: 1px solid black;"><%= gossip.author %></td>
+          <td style="border: 1px solid black;"><%= gossip.content %></td>
+        </tr>
+        <% end %>
+      </table>
+    <h2>Création d'un nouveau potin</h2>
+    <span>Pour ajouter ton potin, clique donc <a href="/gossips/new/">ici</a> !</span>
+
+  </body>
+</html>
