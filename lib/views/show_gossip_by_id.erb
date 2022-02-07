@@ -17,8 +17,8 @@
         <td style="border: 1px solid black;"><%= gossip.id.to_s %></td>
         <td style="border: 1px solid black;"><%= gossip.author %></td>
         <td style="border: 1px solid black;"><%= gossip.content %></td>
-        <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/edit">Update</a></td>
-        <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/delete">Delete</a></td>
+        <td style="border: 1px solid black;"><a href="/gossips/edit/<%=gossip.id.to_s%>">Update</a></td>
+        <td style="border: 1px solid black;"><a href="/gossips/delete/<%=gossip.id.to_s%>">Delete</a></td>
       </tr>
     </table>
     </br>

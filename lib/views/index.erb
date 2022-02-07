@@ -2,28 +2,37 @@
   <head>
     <title>The Gossip Project</title>
   </head>
-  <body>
+  <body style="font-family:Verdana, Arial, Helvetica, sans-serif;font-size:12px;">
 
     <h1>Bienvenue sur ce super site de potins !</h1>
     <h2>Création d'un nouveau potin</h2>
-    <span>Pour ajouter ton potin, clique donc <a href="/gossips/new/">ici</a> !</span>
+    <span>Pour ajouter ton potin, clique donc <a href="/gossips/new/"><button style="background:#FF7F50;color:white;border-radius:5px;">ici</button></a> !</span>
     </br>
     <h2>Liste des potins existants</h2>
-      <table style="border: 1px solid black;">
+      <table style="border: 1px solid black;font-family:Verdana, Arial, Helvetica, sans-serif;font-size:10px;">
         <tr style="border: 1px solid black;">
-          <td style="border: 1px solid black;"><strong>Gossip ID</strong></td>
-          <td style="border: 1px solid black;"><strong>Author</strong></td>
-          <td style="border: 1px solid black;"><strong>Content</strong></td>
-          <td style="border: 1px solid black;"><strong>-</strong></td>
-          <td style="border: 1px solid black;"><strong>-</strong></td>
+          <td style="border: 1px solid black;padding:2px;background:#008080;color:white;text-align:center;"><strong>Gossip IDs</strong></td>
+          <td style="border: 1px solid black;padding:2px;background:#008080;color:white;text-align:center;"><strong>Authors</strong></td>
+          <td style="border: 1px solid black;padding:2px;background:#008080;color:white;text-align:center;"><strong>Contents</strong></td>
+          <td style="border: 1px solid black;padding:2px;background:#008080;color:white;text-align:center;">Update</td>
+          <td style="border: 1px solid black;padding:2px;background:#008080;color:white;text-align:center;">Delete</td>
         </tr>
-        <% gossips.each do |gossip| %>
-        <tr style="border: 1px solid black;">
-          <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>"><%=gossip.id.to_s%></a></td>
-          <td style="border: 1px solid black;"><%=gossip.author%></td>
-          <td style="border: 1px solid black;"><%=gossip.content%></td>
-          <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/edit">Update</a></td>
-          <td style="border: 1px solid black;"><a href="/gossips/<%=gossip.id.to_s%>/delete">Delete</a></td>
+        <% 
+          tmp_line = 1
+          gossips.each do |gossip| 
+            if tmp_line % 2 == 0 
+              tmp_color = "#AFEEEE"
+            else
+              tmp_color = "#E0FFFF"
+            end
+            tmp_line += 1
+        %>
+        <tr style="border: 0px;">
+          <td style="background:<%=tmp_color%>;border: 1px dotted black;padding:2px;text-align:center;"><a href="/gossips/<%=gossip.id.to_s%>"><strong><%=gossip.id.to_s%></strong></a></td>
+          <td style="background:<%=tmp_color%>;border: 1px dotted black;padding:2px;"><%=gossip.author%></td>
+          <td style="background:<%=tmp_color%>;border: 1px dotted black;padding:2px;"><%=gossip.content%></td>
+          <td style="background:<%=tmp_color%>;border: 1px dotted black;padding:2px;"><a href="/gossips/edit/<%=gossip.id.to_s%>"><button style="background:#2E8B57;color:white;border-radius:5px;">Update</button></a></td>
+          <td style="background:<%=tmp_color%>;border: 1px dotted black;padding:2px;"><a href="/gossips/delete/<%=gossip.id.to_s%>"><button style="background:#B22222;color:white;border-radius:5px;">Delete</button></a></td>
         </tr>
         <% end %>
       </table>

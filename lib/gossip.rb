@@ -36,18 +36,18 @@ class Gossip
     tmp_gossip_tab = []
     tmp_line_counter = 0
     if verbose
-      # Show.disp("")
-      # Show.disp("Reading all gossips from CSV file:")
-      # Show.disp("  > Searching for the pointed CS file '#{my_csv_filename}'.")
+      puts
+      puts "Reading all gossips from CSV file:"
+      puts "  > Searching for the pointed CSV file '#{my_csv_filename}'."
     end
     if !File.exists?(my_csv_filename)
       if verbose
-      #   Show.disp("  > File does not exist, sorry. Hence not able to display all gossips.")
+        puts "  > File does not exist, sorry. Hence not able to display all gossips."
       end
       return nil
     else
       if verbose
-        # Show.disp("  > Block reading from CSV file.")
+        puts "  > Block reading from CSV file."
       end
       tmp_lines_tab = IO.readlines(my_csv_filename)
       tmp_lines_tab.each do |my_line|
@@ -56,7 +56,7 @@ class Gossip
         tmp_line_counter += 1
       end
       if verbose
-        # Show.disp("  > Read #{tmp_line_counter} lines from CSV file and stored them into an array of Gossip objects.")
+        puts "  > Read #{tmp_line_counter} lines from CSV file and stored them into an array of Gossip objects."
       end
       return tmp_all_gossips_tab
     end
@@ -69,18 +69,18 @@ def self.get_gossip_by_id(my_csv_filename, my_id, verbose)
   tmp_gossip_tab = []
   tmp_line_counter = 0
   if verbose
-    # Show.disp("")
-    # Show.disp("Reading 1 gossip with ID = #{my_id} from CSV file:")
-    # Show.disp("  > Searching for the pointed CS file '#{my_csv_filename}'.")
+    puts
+    puts "Reading 1 gossip with ID = #{my_id} from CSV file:"
+    puts "  > Searching for the pointed CS file '#{my_csv_filename}'."
   end
   if !File.exists?(my_csv_filename)
     if verbose
-    #   Show.disp("  > File does not exist, sorry. Hence not able to display all gossips.")
+    puts "  > File does not exist, sorry. Hence not able to display all gossips."
     end
     return nil
   else
     if verbose
-      # Show.disp("  > Block reading from CSV file.")
+      puts "  > Block reading from CSV file."
     end
     tmp_lines_tab = IO.readlines(my_csv_filename)
     tmp_lines_tab.each do |my_line|
@@ -88,13 +88,13 @@ def self.get_gossip_by_id(my_csv_filename, my_id, verbose)
       if tmp_gossip_tab[0].chomp.to_i == my_id
         tmp_my_gossip = Gossip.new(tmp_gossip_tab[1].chomp,tmp_gossip_tab[2].chomp,tmp_gossip_tab[0].chomp.to_i,false)
         if verbose
-          # Show.disp("  > Gossip with ID #{my_id} found!.")
+          puts "  > Gossip with ID #{my_id} found!"
         end
       end
       tmp_line_counter += 1
     end
     if verbose
-      # Show.disp("  > Read #{tmp_line_counter} lines from CSV file before finding Gossip with ID #{my_id}.")
+      puts "  > Read #{tmp_line_counter} lines from CSV file before finding Gossip with ID #{my_id}."
     end
     return tmp_my_gossip
   end
@@ -105,27 +105,26 @@ end
     tmp_file = nil
     tmp_write_mode = "w"
     if verbose
-      # Show.disp("")
-      # Show.disp("Saving gossip into CSV file:")
-      # Show.disp("  > Searching for backup file '#{my_csv_filename}'.")
+      puts
+      puts "Saving gossip into CSV file:"
+      puts "  > Searching for backup file '#{my_csv_filename}'."
     end
     if File.exists?(my_csv_filename)
       if verbose
-        # Show.disp("  > File '#{my_csv_filename}' exists already - Adding the gossip.")
+        puts "  > File '#{my_csv_filename}' exists already - Adding the gossip."
       end
       tmp_file = File.open(my_csv_filename, "a")
       tmp_file.write("#{self.id}|#{self.author}|#{self.content}\n")
       tmp_file.close
     else
       if verbose 
-        # Show.disp("  > File '#{my_csv_filename}' does not exist - Creating, opening and writing the gossip into the file.")
+        puts "  > File '#{my_csv_filename}' does not exist - Creating, opening and writing the gossip into the file."
       end
       File.write(my_csv_filename, "#{self.id}|#{self.author}|#{self.content}\n")
     end
     if verbose
-      # Show.disp("  > Data written.")
-      # Show.disp("  > Closing file.")
-      # Show.pause
+      puts "  > Data written."
+      puts "  > Closing file."
     end
   end
 
@@ -134,43 +133,67 @@ end
     tmp_lines_tab = []
     tmp_gossip_items_tab = []
     tmp_block_write = ""
+    if verbose
+      puts
+      puts "Updating gossip ##{self.id} into CSV file:"
+      puts "  > Searching for backup file '#{my_csv_filename}'."
+    end
     if !File.exists?(my_csv_filename)
       if verbose
-        # Show.disp("  > File does not exist, sorry. Hence not able to update nothing in it.")
+        puts "  > File does not exist, sorry. Hence not able to update nothing in it."
       end
       return false
     else
+      puts "  > File '#{my_csv_filename}' exists already - Updating gossip ##{self.id}."
       tmp_lines_tab = IO.readlines(my_csv_filename)
       tmp_lines_tab.each do |my_line|
         tmp_gossip_items_tab = my_line.split("|")
         if tmp_gossip_items_tab[0].to_i == self.id
           tmp_block_write += "#{self.id}|#{self.author}|#{self.content}\n"
+          puts "  > Gossip ##{self.id} found in '#{my_csv_filename}' - Updating author and content."
         else
           tmp_block_write += "#{tmp_gossip_items_tab[0].chomp}|#{tmp_gossip_items_tab[1].chomp}|#{tmp_gossip_items_tab[2].chomp}\n"
         end
       end
       File.write(my_csv_filename,tmp_block_write)
+      if verbose
+        puts "  > Data written in bulk mode then file closed."
+      end
       return true
     end
   end  
 
   # suppr_gossip_from_CSV - Capture all lines of CSV file (if exists) in an array. Delete item with given 'id' then overwrite file with the update array
-  def self.suppr_gossip_from_CSV(my_csv_filename, gossip_id)
+  def self.suppr_gossip_from_CSV(my_csv_filename, gossip_id, verbose)
     tmp_lines_tab = []
     tmp_gossip_items_tab = []
     tmp_block_write = ""
+    puts
+      puts "Deleting gossip ##{gossip_id} from '#{my_csv_filename}' CSV file:"
     if !File.exists?(my_csv_filename)
-      Show.disp("  > File does not exist, sorry. Hence not able to play with it.")
+      if verbose
+        puts "  > File '#{my_csv_filename}' does not exist, sorry. Hence not able to play with it."
+      end
       return false
     else
+      if verbose
+        puts "  > Browsing '#{my_csv_filename}' CSV file to find and delete Gossip ##{gossip_id}."
+      end
       tmp_lines_tab = IO.readlines(my_csv_filename)
       tmp_lines_tab.each do |my_line|
         tmp_gossip_items_tab = my_line.split("|")
         if tmp_gossip_items_tab[0].to_i != gossip_id
           tmp_block_write += "#{tmp_gossip_items_tab[0].chomp}|#{tmp_gossip_items_tab[1].chomp}|#{tmp_gossip_items_tab[2].chomp}\n"
+        else
+          if verbose
+            puts "  > Gossip ##{gossip_id} found - Deleting it from '#{my_csv_filename}'."
+          end
         end
       end
       File.write(my_csv_filename,tmp_block_write)
+      if verbose
+        puts "  > Gossip ##{gossip_id} erased from '#{my_csv_filename}'."
+      end
       return true
     end
   end
