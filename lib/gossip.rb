@@ -62,7 +62,7 @@ class Gossip
     end
   end
 
-# read_all - Open the pointed CSV file (if exists, if not return nil) and return a table containing gossip id, author and content
+# get_gossip_by_id - Open the pointed CSV file (if exists, if not return nil) and return a table containing gossip id, author and content
 def self.get_gossip_by_id(my_csv_filename, my_id, verbose)
   tmp_lines_tab = []
   tmp_my_gossip = nil

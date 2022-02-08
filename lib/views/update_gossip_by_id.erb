@@ -5,7 +5,7 @@
   <body>
     <h1>Mise à jour du potin n°<%=gossip.id.to_s%></h1>
     <p>Balance ton potin via le formulaire ci-dessous</p>
-    <form action='/gossips/edit/<%=gossip.id.to_s%>' method='POST'>
+    <form action='/gossips/<%=gossip.id.to_s%>/edit' method='POST'>
       <label>Si besoin, remplace le nom de l'auteur:</label><input type='text' name='gossip_author' value="<%=gossip.author%>"/><br/>
       <label>Mets à jour le contenu du potin à ta convenances:</label><input type='text' name='gossip_content' value="<%=gossip.content%>"/><br/>
       <input name="gossip_id" type="hidden" value="<%=gossip.id.to_s%>">
